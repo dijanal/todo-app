@@ -5,7 +5,7 @@ import './Button.css'
 class Button extends React.Component{
   render(){
     return(
-      <div>
+      <div className='button'>
         <button type='submit'>{this.props.value}</button>
       </div>
     )
