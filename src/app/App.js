@@ -8,11 +8,14 @@ import TaskList from '../containters/TaskList/TaskList';
 import RegisterPage from '../containters/Register/Register';
 import LoginPage from '../containters/Login/Login';
 
+import Header from '../components/Header/Header.js';
+
 class App extends Component {
     render() {
         return (
             <Router>
                 <div>
+                    <Header/>
                     <Switch>
                         <Route
                             exact path={routes.LANDING}
