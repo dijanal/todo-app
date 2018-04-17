@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
 import './App.css';
 import * as routes from '../constants/routes';
@@ -8,9 +8,23 @@ import TaskList from '../containters/TaskList/TaskList';
 import RegisterPage from '../containters/Register/Register';
 import LoginPage from '../containters/Login/Login';
 
-import Header from '../components/Header/Header.js';
+import Header from '../components/Header/Header';
+
+const fetchStateFromLocalStorage = () => {
+    const userString = window.localStorage.getItem('user');
+
+    if(!userString) {
+        const initialState = {isAuthenticated: false};
+        return initialState;
+    } else {
+        const initialState = JSON.parse(userString);
+        return initialState;
+    }
+}
 
 class App extends Component {
+
+
     render() {
         return (
             <Router>
@@ -19,7 +33,7 @@ class App extends Component {
                     <Switch>
                         <Route
                             exact path={routes.LANDING}
-                            component={() => <TaskList/>}
+                            component={ TaskList}
                         />
                         <Route
                             exact path={routes.REGISTER}
@@ -27,7 +41,7 @@ class App extends Component {
                         />
                         <Route
                             exact path={routes.LOGIN}
-                            component={() => <LoginPage/>}
+                            component={ () => <LoginPage/>}
                         />
                         <Route component={NoMatch}/>
                     </Switch>
@@ -36,6 +50,8 @@ class App extends Component {
         );
     }
 }
+
+
 
 const NoMatch = ({location}) => (
     <div>
