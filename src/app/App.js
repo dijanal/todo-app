@@ -62,7 +62,7 @@ class App extends Component {
                         />
                         <Route
                             exact path={routes.REGISTER}
-                            render={props => <RegisterPage handleLogi/> }
+                            render={props => <RegisterPage handleLogin={this.authenticate} redirect={this.state.isAuthenticated}/> }
                         />
                         <Route
                             exact path={routes.LOGIN}

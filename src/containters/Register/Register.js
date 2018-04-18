@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {withRouter,Redirect} from 'react-router-dom'
+
 
 import './Register.css';
 
@@ -17,6 +19,7 @@ class Register extends Component {
     }
     this.setChangeEmail = this.setChangeEmail.bind(this);
     this.setChangePassword = this.setChangePassword.bind(this);
+    this.setChangePassConfirm=this.setChangePassConfirm.bind(this);
   }
 
   setChangeEmail(value){
@@ -24,6 +27,10 @@ class Register extends Component {
   }
   setChangePassword(value){
     this.setState({password:value})
+  }
+
+  setChangePassConfirm(value){
+    this.setState({passConfirm:value})
   }
 
   handleValidateEmail(value) {
@@ -39,7 +46,7 @@ class Register extends Component {
   }
 
   register(){
-
+    const handleLogin=this.props.handleLogin
 
     if(this.state.email === '' || this.state.password === '' || this.state.passwordConfirm === '') {
             this.setState({isValid: false, errorMsg: 'All fields must be filled'});
@@ -50,11 +57,13 @@ class Register extends Component {
             return;
             }
 
-
+    handleLogin()
       }
 
     render(){
-
+      if (this.props.redirect) {
+        return <Redirect to={'/'} />;
+      }
         return(
           <div className='login'>
           <Input type='email'
@@ -72,15 +81,15 @@ class Register extends Component {
           />
           <Input type='password'
                  placeholder='password...'
-                 setChange={this.setChangePassword}
+                 setChange={this.setChangePassConfirm}
                  handleValidate={this.handleValidatePassword}
-                 errorMsg='Password is not valid'
+                 errorMsg='Password is not valid,must have at least 5 and max 10 characters.'
           />
           {!this.state.isValid && <div>{this.state.errorMsg}</div>}
-          <Button value='Log In' />
+          <Button value='Log In' onClick={()=>{this.register()}}/>
           </div>
         )
     }
 }
 
-export default Register;
+export default withRouter(Register);
