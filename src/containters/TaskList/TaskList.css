@@ -42,6 +42,12 @@
     position: relative;
 }
 
+#add_task_btn {
+    width: 180px;
+    float: right;
+    margin-right: 80px;
+}
+
 
 
 
