@@ -8,14 +8,21 @@ class Header extends React.Component {
     return(
       <div className='header'>
         <ul>
+        {!this.props.redirect && <div>
           <li>
             <Link to='/login'> Log In </Link>
           </li>
           <li>
             <Link to='/register'> Register </Link>
           </li>
+          <hr/>
+          </div>}
+          {this.props.redirect && <div>
+          <li className='signout'> 
+            <a onClick={()=> this.props.handleSingOut()}>Sing Out </a>
+          </li>
+      </div>}
         </ul>
-        <hr/>
       </div>
     )
   }

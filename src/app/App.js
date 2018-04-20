@@ -23,25 +23,50 @@ const fetchStateFromLocalStorage = () => {
 }
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        const initialState = fetchStateFromLocalStorage();
 
+        this.state = initialState
+
+        this.authenticate = this.authenticate.bind(this);
+        this.signout = this.signout.bind(this);
+    }
+
+    authenticate() {
+
+        const user = {isAuthenticated: true};
+        window.localStorage.setItem('user', JSON.stringify(user))
+
+        this.setState(user)
+    }
+
+    signout() {
+
+        window.localStorage.removeItem('user')
+        this.setState({isAuthenticated: false})
+    }
 
     render() {
+
+
         return (
             <Router>
                 <div>
-                    <Header/>
+                <Header redirect={this.state.isAuthenticated} handleSingOut={this.signout}/>
                     <Switch>
-                        <Route
+                        <PrivateRoute
                             exact path={routes.LANDING}
                             component={ TaskList}
+                            isAuthenticated={this.state.isAuthenticated}
                         />
                         <Route
                             exact path={routes.REGISTER}
-                            component={() => <RegisterPage/>}
+                            render={props => <RegisterPage handleLogin={this.authenticate} redirect={this.state.isAuthenticated}/> }
                         />
                         <Route
                             exact path={routes.LOGIN}
-                            component={ () => <LoginPage/>}
+                            render={props => <LoginPage handleLogin={this.authenticate} redirect={this.state.isAuthenticated} />}
                         />
                         <Route component={NoMatch}/>
                     </Switch>
@@ -51,6 +76,23 @@ class App extends Component {
     }
 }
 
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props => isAuthenticated ? (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect
+                            to={{
+                                pathname: "/login",
+                                state: { from: props.location }
+                            }}
+                        />
+                    )}
+        />
+    );
+}
 
 
 const NoMatch = ({location}) => (
