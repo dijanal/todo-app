@@ -23,11 +23,12 @@ class TaskList extends Component {
             name: "",
             description: "",
             user: "",
-        };
-
+        };       
     }
 
+
     componentDidMount() {
+
         fetch('https://todo-app-4545e.firebaseio.com/todos.json')
             .then(response => response.json())
             .then(json => {
@@ -39,8 +40,8 @@ class TaskList extends Component {
     }
 
     show = () => {
-        this.setState({visible: true});
-
+        this.setState({ visible: true });
+        console.log(this.state.todos);
 
     };
 
@@ -51,10 +52,10 @@ class TaskList extends Component {
     handleSubmit = (e) => {
         const url = 'https://todo-app-4545e.firebaseio.com/todos.json'
         const task = JSON.stringify({
-            description: this.state.description,
-            task_name: this.state.name,
-            user: this.state.user
-        });
+                    description: this.state.description,
+                    task_name: this.state.name,
+                    user: this.state.user                           
+                });
 
         let fetchData = {
             method: 'POST',
@@ -120,16 +121,17 @@ class TaskList extends Component {
                 </Accordion>
 
                 <Rodal visible={this.state.visible}
-                       onClose={this.hide.bind(this)}
-                       animation="door"
-                       height="350"
-                       width="500">
+                    onClose={this.hide.bind(this)}
+                    animation="door"
+                    height={350}
+                    width={500}>
                     <div>
-                        <Form>
+                        <Form >
                             <FormGroup>
                                 <ControlLabel>Task name</ControlLabel>{' '}
                                 <FormControl type="text" placeholder="Enter task title"
-                                             onChange={this.handleNameChange}/>
+                                    onChange={this.handleNameChange}
+                                />
                             </FormGroup>{' '}
                             <FormGroup>
                                 <ControlLabel>Task description</ControlLabel>{' '}
