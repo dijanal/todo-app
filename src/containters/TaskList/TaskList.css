@@ -49,7 +49,6 @@
 }
 
 
-
-
-
-
+.check-label:checked + .label-for-check {
+  font-weight: bold;
+}

@@ -7,18 +7,17 @@ class Header extends React.Component {
   render(){
     return(
       <div className='header'>
-        <ul>
+      <ul >
         {!this.props.redirect && <div>
-          <li>
-            <Link to='/login'> Log In </Link>
+          <li >
+            <Link to='/login' className='link'> Log In </Link>
           </li>
           <li>
-            <Link to='/register'> Register </Link>
+            <Link to='/register' className='link'> Register </Link>
           </li>
-          <hr/>
           </div>}
           {this.props.redirect && <div>
-          <li className='signout'> 
+          <li className='signout'>
             <a onClick={()=> this.props.handleSingOut()}>Sing Out </a>
           </li>
       </div>}

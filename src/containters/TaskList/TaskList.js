@@ -23,7 +23,9 @@ class TaskList extends Component {
             name: "",
             description: "",
             user: "",
-        };       
+        };
+
+        this.markAsDone=this.markAsDone.bind(this)
     }
 
 
@@ -54,7 +56,7 @@ class TaskList extends Component {
         const task = JSON.stringify({
                     description: this.state.description,
                     task_name: this.state.name,
-                    user: this.state.user                           
+                    user: this.state.user
                 });
 
         let fetchData = {
@@ -91,6 +93,21 @@ class TaskList extends Component {
         this.setState({user: e.target.value});
     };
 
+    markAsDone(event){
+      const newTasks = this.state.todos
+      console.log(newTasks)
+        Object.values(newTasks).map(task => {
+            if (task.description === task.description) {
+                const newTask = Object.assign(task, {isFinished: true})
+                return newTask;
+              }
+              return task;
+        }
+      )
+      this.setState(newTasks);
+
+    }
+
 
     render() {
         return (
@@ -113,6 +130,7 @@ class TaskList extends Component {
                                 <div>
                                     {`Is finished: ${todo.isFinished}`}
                                 </div>
+                                <input type='checkbox' className='check-label' id='check' onClick={this.markAsDone}/><label htmlFor='check' className='label-for-check'>  Mark as done </label>
                             </AccordionItem>
 
 
