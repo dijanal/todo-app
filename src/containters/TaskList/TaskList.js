@@ -40,10 +40,17 @@ class TaskList extends Component {
     }
 
     removeTodo = (key) => {
-        console.log(key);
         let firebaseRef = fire.database().ref('todos');
         firebaseRef.child(key).remove();
-    }
+    };
+
+    updateTodo = (key, dataToChange, value) => {
+        let ref = fire.database().ref(`todos/${key}`);
+        ref.update({[dataToChange] : value})
+        .catch(function (err) {
+            console.log('one of these updates failed', err);
+        });
+    };
 
     show = () => {
         this.setState({visible: true});
@@ -81,21 +88,8 @@ class TaskList extends Component {
 
     clearInput = () => {
         this.setState({user: "", description: "", name: ""});
-    }
-
-    markAsDone = (event) => {
-        const newTasks = this.state.todos
-        Object.values(newTasks).map(task => {
-                if (task.description === task.description) {
-                    const newTask = Object.assign(task, {isFinished: true});
-                    return newTask;
-                }
-                return task;
-            }
-        );
-        this.setState(newTasks);
-
     };
+
 
     render() {
         return (
@@ -110,16 +104,16 @@ class TaskList extends Component {
                                 >
                                     <div className="accordion_item_wrapper">
                                         <div className="mark_as_done_wrapper">
-                                            <input type='checkbox' className='check-label' id='check'
-                                                   onClick={this.markAsDone}/>
+                                            <input type='checkbox'
+                                                   className='check-label'
+                                                   id='check'
+                                                   defaultChecked={todo.isFinished}
+                                                   onClick={() => this.updateTodo(todo.key, "isFinished", !todo.isFinished)}/>
                                             <label htmlFor='check'
                                                    className='label-for-check'> Mark as done </label>
                                         </div>
                                         <div className="description_wrapper">
                                             {`Description: ${todo.description}`}
-                                        </div>
-                                        <div>
-                                            {`Is finished: ${todo.isFinished}`}
                                         </div>
                                         <div className="vertical_line">
 
@@ -133,8 +127,6 @@ class TaskList extends Component {
 
                                     </div>
                                 </AccordionItem>
-
-
                             );
                         })}
                     </Accordion>
