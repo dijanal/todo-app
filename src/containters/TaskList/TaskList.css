@@ -1,3 +1,4 @@
+
 :root {
     --border-radius: 6px;
     --color-primary: rgb(39, 164, 254);
@@ -16,6 +17,8 @@
     border: 1px solid #ccc;
     border-radius: 3px;
     margin-bottom: 70px;
+    padding-left: 200px;
+    padding-right: 200px;
 }
 
 .react-sanfona-item-title {
@@ -48,7 +51,41 @@
     margin-right: 80px;
 }
 
-
 .check-label:checked + .label-for-check {
-  font-weight: bold;
+    font-weight: bold;
 }
+
+.accordion_item_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.description_wrapper {
+    flex-basis: 200px;
+}
+
+.user_wrapper{
+    flex-basis: 200px;
+}
+
+.mark_as_done_wrapper{
+    flex-basis: 200px;
+    padding-left: 50px;
+}
+
+.vertical_line {
+    height: 50px;
+    width: 1px;
+    background: #000;
+}
+
+#container {
+
+}
+
+#task_list_wrapper {
+
+}
+

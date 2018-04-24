@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.0",
+    "firebase": "^4.13.1",
     "firebase-app": "^0.0.1",
     "firebase-tools": "^3.18.4",
     "font-awesome": "^4.7.0",
