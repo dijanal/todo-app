@@ -122,7 +122,7 @@ class TaskList extends Component {
                                             {`User: ${todo.user}`}
                                         </div>
                                         <div onClick={() => this.removeTodo(todo.key)}>
-                                            X
+                                            <i className="fa fa-times"></i>
                                         </div>
 
                                     </div>
